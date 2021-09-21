@@ -3,12 +3,12 @@ import { ethers } from 'ethers';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json'
 
 // Update with the contract address logged out to the CLI when it was deployed 
-const greeterAddress = "CONTRACT ADDRESS";
+const greeterAddress = "CONTRACT_ADDRESS";
 
 function App() {
   
   // store greeting in local state
-  const [greeting, setGreetingValue] = useState()
+  const [greeting, setGreetingValue] = useState('')
 
   // request access to the user's MetaMask account
   async function requestAccount() {
@@ -17,6 +17,7 @@ function App() {
   
   async function fetchGreeting() {
     if (typeof window.ethereum !== 'undefined') {
+      console.log('red');
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const contract = new ethers.Contract(greeterAddress, Greeter.abi, provider)
       try {
@@ -25,7 +26,9 @@ function App() {
       } catch (err) {
         console.log("Error: ", err)
       }
-    }    
+    } else {
+      console.log('window.ethereum not defined')
+    }
   }  
   // call the smart contract, send an update
   async function setGreeting() {
