@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json'
+import './App.css';
 
 // Update with the contract address logged out to the CLI when it was deployed 
 const greeterAddress = 'CONTRACT_ADDRESS';
 
 function App() {
-  
+
   // store greeting in local state
-  const [greeting, setGreetingValue] = useState('')
+  const [greeting, setGreetingValue] = useState('default')
+  const [string, setString] = useState('');
 
   // request access to the user's MetaMask account
   async function requestAccount() {
@@ -22,8 +24,8 @@ function App() {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const contract = new ethers.Contract(greeterAddress, Greeter.abi, provider)
       try {
-        const data = await contract.greet()
-        console.log('data: ', data)
+        const data = await contract.greet();
+        setString(data);
       } catch (err) {
         console.log("Error: ", err)
       }
@@ -48,6 +50,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="greeting">{string}</div>
         <button onClick={fetchGreeting}>Fetch Greeting</button>
         <button onClick={setGreeting}>Set Greeting</button>
         <input onChange={e => setGreetingValue(e.target.value)} placeholder="Set greeting" />
