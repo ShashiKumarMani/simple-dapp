@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json'
 
 // Update with the contract address logged out to the CLI when it was deployed 
-const greeterAddress = "CONTRACT_ADDRESS";
+const greeterAddress = 'CONTRACT_ADDRESS';
 
 function App() {
   
@@ -12,12 +12,13 @@ function App() {
 
   // request access to the user's MetaMask account
   async function requestAccount() {
+    console.log('request accounts')
     await window.ethereum.request({ method: 'eth_requestAccounts' });
   }  
   
   async function fetchGreeting() {
     if (typeof window.ethereum !== 'undefined') {
-      console.log('red');
+      console.log('red2');
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const contract = new ethers.Contract(greeterAddress, Greeter.abi, provider)
       try {

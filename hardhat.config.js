@@ -22,8 +22,9 @@ module.exports = {
     artifacts: './src/artifacts',
   },
   networks: {
-    hardhat: {
-      chainId: 1337
+    ropsten : {
+      url : `https://ropsten.infura.io/v3/<INFURA_API_KEY>`,
+      accounts : [`ACCOUNT_PRIVATE_KEY`]
     }
   }
 };
